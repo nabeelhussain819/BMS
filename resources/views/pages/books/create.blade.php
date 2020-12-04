@@ -16,7 +16,49 @@
     <!--begin::Form-->
 <form class="form" enctype="multipart/form-data" action="{{route('books.store')}}" method="POST">
         @csrf  
-    <div class="card-body">
+        <div class="container">
+ 
+        <div class="row">
+            <div class="col-md-6">
+
+            <div class="form-group">
+                <label>Title :</label>
+                <input type="text" name="title" class="form-control form-control-solid" placeholder="Enter Book Title" required>
+            </div>
+            <br>  
+             <div class="form-group">
+                <label>Description</label>
+                <div class="input-group input-group-solid">
+                        <textarea name="desc" class="form-control" cols="30" rows="10" placeholder="Enter Description" required></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+            <label>Price</label>
+            <div class="input-group input-group-solid">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="text" name="price" class="form-control form-control-solid" placeholder="Enter Price" required>
+            </div>
+            </div>
+            <div class="form-group">
+                <label>Year: </label>
+                <input type="text" name="year" class="form-control form-control-solid" placeholder="Enter Year" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>ISBN: </label>
+                <input type="text" name="ISBN" class="form-control form-control-solid" placeholder="Enter Book ISBN" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Book Cover</label>
+                <input type="file" name="file" class="form-control form-control-solid" onchange="previewFile(this)" required>
+            </div>
+            <img  alt="preview img" id="previewImg" style="max-width:230px; margin-top:20px;">
+        </div>
+        <div class="col-md-6">
                 <div class="form-group">
                     <label for="sel1">Select Author:</label>
                     <select class="form-control" name="author_name"  id="ddselect" onchange="changeAuthor();" required>
@@ -27,14 +69,12 @@
 
                             </select>
                 </div>
+                <br>
                 <div class="form-group"  id="author_name">
                     <label>Enter Author Name</label>
                     <input type="text" placeholder="Enter Author Name" name="author_name1"  class="form-control" />
                 </div>
-            <div class="form-group">
-                <label>Title :</label>
-                <input type="text" name="title" class="form-control form-control-solid" placeholder="Enter Book Title" required>
-            </div>
+                <br>
             <div class="form-group">
                 <label>Select Category</label>
                 <select class="form-control" name="category"  id="ddselect1" onchange="changeCategory();" required>
@@ -84,53 +124,31 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Description</label>
-                    <div class="input-group input-group-solid">
-                            <textarea name="desc" class="form-control" cols="30" rows="10" placeholder="Enter Description" required></textarea>
-                    </div>
+                    <label>Available</label>
+                    <select name="active" class="form-control">
+                        <option value=0>
+                            Yes
+                        </option>
+                        <option value=1>
+                            No
+                        </option>
+                    </select>
                 </div>
-                <br>
-                <div class="form-group">
-                <label>Price</label>
-                <div class="input-group input-group-solid">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">$</span>
-                    </div>
-                    <input type="text" name="price" class="form-control form-control-solid" placeholder="Enter Price" required>
-                </div>
-            </div>
-            <br>
-            <div class="form-group">
-                <label>Year: </label>
-                <input type="text" name="year" class="form-control form-control-solid" placeholder="Enter Year" required>
-            </div>
-            <div class="form-group">
-                <label>ISBN: </label>
-                <input type="text" name="ISBN" class="form-control form-control-solid" placeholder="Enter Book ISBN" required>
-            </div>
-            <br>
-            <div class="form-group">
-                <label>Available</label>
-            <select class="form-control" name="active"  id="ddselect2" required>
-                    <option value="0">Yes</option>
-                    <option value="1">No</option>
-                </select>
-        </div>
-            <div class="form-group">
-                <label>Book Cover</label>
-                <input type="file" name="file" class="form-control form-control-solid" onchange="previewFile(this)" required>
-            </div>
-            <img  alt="preview img" id="previewImg" style="max-width:230px; margin-top:20px;">
+
+         
+       
             <br>
             {{-- <input type="hidden" name="created_by" value="{{Auth::user()->id}}">
             <input type="hidden" name="updated_by" value="{{Auth::user()->id}}"> --}}
         </div>
+    </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-secondary">Cancel</button>
         </div>
     </form>
     <!--end::Form-->
+</div>
 </div>
 
 @endsection

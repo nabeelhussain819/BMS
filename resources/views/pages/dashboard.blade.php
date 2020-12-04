@@ -61,7 +61,9 @@
                         <th>Book Author</th>
                         <th>Book Title</th>
                         <th>Category</th>
-                        <th>Price</th>
+                          <th>Genre</th>
+                        <th>Language</th>
+                          <th>Price</th>
                         <th>Year</th>
                         <th>Created By</th>
                         <th>Updated By</th>
@@ -73,19 +75,39 @@
                         @foreach ($books as $item)
                         <tr> 
                     <td>
-                        {{-- @isset($item->authorName)
-                           {{ $item->authorName->name}}
-                        @endisset --}}
                         @isset($item->author)
                         {{$item->author->name}}
                         @endisset
                     </td>
                     <td>{{$item['title']}}</td>
-                <td>{{$item['category']}}</td>
+                <td>
+                    @isset($item->category)
+                        {{$item->categories->name}}
+                    @endisset
+                </td>
+                <td>
+                    @isset($item->genre)
+                        {{$item->genres->name}}
+                    @endisset
+                </td>
+
+                <td>
+                    @isset($item->language)
+                        {{$item->languages->name}}
+                    @endisset
+                </td>
                     <td>{{$item['price']}}</td>
                         <td>{{$item['year']}}</td>
-                        <td>{{$item['created_By']}}</td>
-                        <td>{{$item['updated_By']}}</td>
+                        <td>
+                            @isset($item->created_By)
+                                {{$item->users->name}}
+                            @endisset
+                        </td>
+                        <td>
+                            @isset($item->created_By)
+                                {{$item->users->name}}
+                            @endisset
+                        </td>
                         <td>{{$item['ISBN']}}</td>
                     </tr>
                         @endforeach

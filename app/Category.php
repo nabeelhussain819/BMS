@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Books;
+use App\Book;
 
 class Category extends Model
 {
@@ -14,6 +14,6 @@ class Category extends Model
     public function categories()
     {
 
-        return $this->belongsTo(Books::class, 'id');
+        return $this->belongsTo(Book::class, 'id');
     }
 }

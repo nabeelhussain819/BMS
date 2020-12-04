@@ -15,7 +15,8 @@ class DashboardController extends Controller
         // $books = Books::with('authorName')->get();
 
         $books = Book::with('author')->get();
-        //return $books;
+
+
         return view('pages.dashboard', compact('books'));
     }
 }

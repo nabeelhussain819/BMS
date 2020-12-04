@@ -55,45 +55,77 @@
 
             <table class="table table-bordered table-hover" id="kt_datatable">
                 <thead>
-                <tr>
-                    <th>Book ID</th>
-                    <th>Book Author</th>
-                    <th>Book Title</th>
-                    <th>Price</th>
-                    {{-- <th>Category</th> --}}
-                    <th>Year</th>
-                    <th>Created By</th>
-                    <th>Updated By</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>ISBN</th>
-                    <th>image</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach ($books as $item)
-                    <tr> 
-                <td>{{$item['id']}}</td>
-                <td>{{$item['author_name']}}</td>
-                <td>{{$item['title']}}</td>
-                <td>{{$item['price']}}</td>
-                    {{-- <td>{{$item->category->name}}</td> --}}
-                    <td>{{$item['year']}}</td>
-                    <td>{{$item['created_By']}}</td>
-                    <td>{{$item['updated_By']}}</td>
-                    <td>{{$item['created_at']}}</td>
-                    <td>{{$item['updated_at']}}</td>
-                    <td>{{$item['ISBN']}}</td>
-                    <td nowrap>
-                    <a href="/show_book/{{$item['id']}}"><span class="fa fa-eye"></span></a>
-                        <a href="/edit_book/{{$item['id']}}"><span class="fa fa-pen"></span></a>
-                        <a href="/delete_book/{{$item['id']}}"><span class="fa fa-trash"></span></a>
+                    <tr>
+                        <th>Book Author</th>
+                        <th>Book Title</th>
+                        <th>Category</th>
+                          <th>Genre</th>
+                        <th>Language</th>
+                          <th>Price</th>
+                        <th>Year</th>
+                        <th>Created By</th>
+                        <th>Updated By</th>
+                        <th>ISBN</th>
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                   
+                        @foreach ($books as $item)
+                        <tr> 
+                    <td>
+                        @isset($item->author)
+                        {{$item->author->name}}
+                        @endisset
                     </td>
-                </tr>
-                @endforeach
+                    <td>{{$item['title']}}</td>
+                <td>
+                    @isset($item->category)
+                        {{$item->categories->name}}
+                    @endisset
+                </td>
+                <td>
+                    @isset($item->genre)
+                        {{$item->genres->name}}
+                    @endisset
+                </td>
 
-                </tbody>
+                <td>
+                    @isset($item->language)
+                        {{$item->languages->name}}
+                    @endisset
+                </td>
+                    <td>{{$item['price']}}</td>
+                        <td>{{$item['year']}}</td>
+                        <td>
+                            @isset($item->created_By)
+                                {{$item->users->name}}
+                            @endisset
+                        </td>
+                        <td>
+                            @isset($item->created_By)
+                                {{$item->users->name}}
+                            @endisset
+                        </td>
+                        <td>{{$item['ISBN']}}</td>
+                    <td>         
+                        @if ($item['active'] == 0)
+                        Yes
+                        @else
+                        No                                    
+                        @endif
+                       
+                    </td>
+                        <td nowrap>
+                            <a href="/show_book/{{$item['id']}}"><span class="fa fa-eye"></span></a>
+                                <a href="/edit_book/{{$item['id']}}"><span class="fa fa-pen"></span></a>
+                                <a href="/delete_book/{{$item['id']}}"><span class="fa fa-trash"></span></a>
+                            </td>
+                    </tr>
+                        @endforeach
+
+                    </tbody>
             </table>
         </div>
 

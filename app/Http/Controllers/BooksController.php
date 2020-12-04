@@ -21,7 +21,7 @@ class BooksController extends Controller
         // calling books, which only user has inserted 
 
         $id = Auth::user()->id;
-        $books = Book::where('created_By', $id)->get();
+        $books = Book::with('author')->where('created_By', $id)->get();
 
         return view('pages.books.index', compact('books'));
     }
@@ -30,11 +30,16 @@ class BooksController extends Controller
     public function create()
     {
         //
-        $authors = Author::all();
-        $categories = Category::all();
-        $language = Language::all();
-        $genres = Genre::all();
-        return view('pages.books.create', compact('authors', 'categories', 'genres', 'language'));
+
+        return view(
+            'pages.books.create',
+            [
+                'authors' => Author::all(),
+                'categories' => Category::all(),
+                'language' => Language::all(),
+                'genres' => Genre::all()
+            ]
+        );
     }
 
 
@@ -105,7 +110,7 @@ class BooksController extends Controller
             $books->price = $request->price;
             $books->year = $request->year;
             $books->description = $request->desc;
-            $books->active = true;
+            $books->active = $request->active;
             $books->created_By = Auth::user()->id;
             $books->updated_By = Auth::user()->id;
             $books->ISBN = $ISBN;
