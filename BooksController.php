@@ -31,15 +31,7 @@ class BooksController extends Controller
     {
         //
 
-        return view(
-            'pages.books.create',
-            [
-                'authors' => Author::all(),
-                'categories' => Category::all(),
-                'language' => Language::all(),
-                'genres' => Genre::all()
-            ]
-        );
+        
     }
 
 
