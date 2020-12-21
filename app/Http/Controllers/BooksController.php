@@ -45,62 +45,31 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
-        //Sir sorry for this messy code 
-
+        $book = books::create(){
+            [
+                'authors' => Author::all(),
+                'categories' => Category::all(),
+                'language' => Language::all(),
+                'genres' => Genre::all()
+            ]
+        };
+        
         try {
-            //classes
-            $books = new Book();
-            $media = new Media();
-            $author = new Author();
-            $categories = new Category();
-            $genres = new Genre();
-            $language = new Language();
+           
+            $book = new Book;
+            $book->authors = $require->author_name;
+            $book->categories = $require->category_name;
+            $book->language  = $require->language_name;
+            $book->generes = $require->generes_name;
+            
+            $book->save();
 
-            //first storing books
-
-            //storing authors
-
-            if ($request->author_name1) {
-                $author->name = $request->author_name1;
-                $author->save();
-            }
-
-            if ($request->category_name) {
-                $categories->name = $request->category_name;
-                $categories->save();
-            }
-
-            if ($request->genre_name) {
-                $genres->name = $request->genre_name;
-                $genres->save();
-            }
-            if ($request->language_name) {
-                $language->name = $request->language_name;
-                $language->save();
-            }
-
-            if ($request->author_name1 == null) {
-                $books->author_id = $request->author_name;
-            } else {
-                $books->author_id = $author->id;
-            }
-
-            if ($request->category_name == null) {
-                $books->category = $request->category;
-            } else {
-                $books->category = $categories->id;
-            }
-
-            if ($request->genre_name == null) {
-                $books->genre = $request->genre;
-            } else {
-                $books->genre = $genres->id;
-            }
-
-            if ($request->language_name == null) {
-                $books->language = $request->language;
-            } else {
-                $books->language = $language->id;
+            if($request->file('file')){
+                $imageName= time.".".$image->extension();
+                $img = image::make($image->getRealPath());
+                $img->stream();
+                Storage::disk('local')->put('images/'. $imageName, $img,'public');
+                $admin_qoute->media_id = $imageName;
             }
 
             $ISBN = $request->input('ISBN', rand(0, 10));
@@ -118,24 +87,7 @@ class BooksController extends Controller
             $books->save();
 
 
-            //storing media with books sorry for bad code.
-
-            $media->name = $books->title;
-            $media->book_id = $books->id;
-            $media->user_id = Auth::user()->id;
-            $image = $request->file('file');
-            $imageName = time() . "." . $image->extension();
-            $image->move(public_path('images'), $imageName);
-
-            $media->extension = $imageName;
-            $media->system = "asd";
-            $media->GUID = Str::uuid();
-            //getting id using auth
-            $media->created_By = Auth::user()->id;
-            $media->updated_By = Auth::user()->id;
-
-
-            $media->save();
+            
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);
